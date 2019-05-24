@@ -43,8 +43,10 @@ def filledfuncplot(x,
 
 
 def diffplot(y, x=None,
-    marker=None, markersize=None, pointcolors=None, pointsalpha=None,
-    linewidths=1, linecolors=None, linestyles='-', linesalpha=None):
+    marker : Optional[str]=None, markersize : Optional[int]=None,
+    pointcolors=None, pointsalpha : Optional[float]=None,
+    linewidths : Optional[int]=1, linecolors=None, linestyles : Optional[str]='-',
+    linesalpha : Optional[float]=None) -> None:
 
     y = np.array(y)
 
