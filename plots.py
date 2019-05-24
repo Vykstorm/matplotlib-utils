@@ -16,9 +16,6 @@ def filledfuncplot(x,
     elif callable(y):
         y = y(x)
 
-    xf = np.concatenate(([x[0]], x, [x[-1]]))
-    yf = np.concatenate(([0], y, [0]))
-
     if color is None:
         if alpha is None:
             alpha = 0.35 if border is False else 0.2
@@ -36,7 +33,7 @@ def filledfuncplot(x,
             else:
                 borderalpha -= alpha
 
-    plt.fill(xf, yf, color=color, alpha=alpha)
+    plt.fill_between(x, y, color=color, alpha=alpha)
 
     if border:
         plt.plot(x, y, color=color, alpha=borderalpha, linewidth=bordersize, label='_nolegend_')
@@ -76,7 +73,10 @@ def diffplot(y, x=None,
 if __name__ == '__main__':
     a = np.random.random(10)
     b = np.random.random(10)
-    diffplot((a, b), linewidths=1, pointcolors='blue', pointsalpha=1)
+
+    filledfuncplot(a)
+
+    #diffplot((a, b), linewidths=1, pointcolors='blue', pointsalpha=1)
     #plt.plot(a, b, None)
     #plt.legend(['f'])
     plt.show()
