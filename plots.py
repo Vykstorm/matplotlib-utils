@@ -65,7 +65,7 @@ def filledplot(x,
         plt.plot(x, y, color=color, alpha=borderalpha, linewidth=bordersize, label='_nolegend_')
 
 
-def diffplot(y, x=None,
+def diffplot(x, y=None,
     marker : Optional[str]=None, markersize : Optional[int]=None,
     colors=None, alpha : Optional[float]=None,
     matchmarker : Optional[str]=None, matchmarkersize : Optional[float]=None,
@@ -74,12 +74,14 @@ def diffplot(y, x=None,
     linewidths : Optional[int]=1, linecolors=None, linestyles : Optional[str]='-',
     linesalpha : Optional[float]=None,) -> None:
 
-    y = np.array(y)
-
-    if x is None:
-        x = np.arange(0, len(a))
-    else:
+    if x is not None:
         x = np.array(x)
+
+    if y is None:
+        y = x
+        x = np.arange(0, y.shape[1])
+    else:
+        y = np.array(y)
 
     if colors is None and alpha is None:
         alpha = 1
@@ -125,5 +127,5 @@ if __name__ == '__main__':
     b = np.random.randint(0, 4, size=10)
 
 
-    diffplot((a, b))
+    diffplot(np.arange(10,10+len(a)), (a, b))
     plt.show()
