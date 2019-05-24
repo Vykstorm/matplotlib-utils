@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib import collections as mc
 
 
-def filledfuncplot(x,
+def filledplot(x,
     y=None, border : Optional[bool]=True, color=None, alpha : Optional[float]=None,
     borderalpha : Optional[float]=None, bordersize : Optional[int]=None) -> None:
 
