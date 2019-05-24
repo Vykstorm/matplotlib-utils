@@ -73,6 +73,42 @@ def diffplot(x, y=None,
 
     linewidths : Optional[int]=1, linecolors=None, linestyles : Optional[str]='-',
     linesalpha : Optional[float]=None,) -> None:
+    '''
+    Creates a graphic that shows 2 different set of points (A and B with same length) and
+    lines are drawn between each pair of points
+
+    Signatures are:
+    diffplot(x, y, ...)
+    diffplot(y, ...)
+
+    :param x: Must be a 1D array with coordinates on the x-axis
+    :param y: Must be a 2D array with 2 rows. Each row specifies the coordinates on the y-axis for
+    each set of points
+
+    :param marker: Marker to plot the points
+    :param markersize: Size of the markers
+    :param colors: Colors of the points
+    :param alpha: Alpha value to be used when plotting the points
+
+    :param matchmarker: Indicates a different marker when a plotting a pair of plots with same y-coordinate
+    :param matchmarkersize:
+    :param matchcolor:
+    :param matchalpha:
+
+    :param linewidths: Length of the lines to be plotted
+    :param linecolors:
+    :param linestyles:
+    :param linesalpha
+
+    examples:
+    a, b = np.random.randint(0, 70, size=10), np.random.randint(20, 90, size=10)
+    x = np.linspace(0, 1, len(a))
+
+    diffplot([a, b])
+    diffplot(x, [a, b])
+    diffplot(x, [a, b], marker='*', linestyles='--')
+    diffplot(x, [a, b], colors='blue', linecolors='orange', alpha=0.9, linesalpha=0.75)
+    '''
 
     if x is not None:
         x = np.array(x)
@@ -123,9 +159,9 @@ def diffplot(x, y=None,
     plt.scatter(xnd, ynd[0, :], marker=matchmarker, c=matchcolor, s=matchmarkersize, alpha=matchalpha)
 
 if __name__ == '__main__':
-    a = np.random.randint(0, 4, size=10)
-    b = np.random.randint(0, 4, size=10)
+    a, b = np.random.randint(0, 70, size=10), np.random.randint(20, 90, size=10)
+    x = np.linspace(0, 1, len(a))
+    diffplot(x, [a, b], colors='blue', linecolors='orange', alpha=0.9, linesalpha=0.75)
 
 
-    diffplot(np.arange(10,10+len(a)), (a, b))
     plt.show()
