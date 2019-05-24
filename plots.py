@@ -10,11 +10,16 @@ def filledfuncplot(x,
     y=None, border : Optional[bool]=True, color=None, alpha : Optional[float]=None,
     borderalpha : Optional[float]=None, bordersize : Optional[int]=None) -> None:
 
+    if x is not None:
+        x = np.array(x)
+
     if y is None:
         y = x
         x = np.arange(0, len(y))
     elif callable(y):
         y = y(x)
+    else:
+        y = np.array(y)
 
     if color is None:
         if alpha is None:
@@ -52,6 +57,8 @@ def diffplot(y, x=None,
 
     if x is None:
         x = np.arange(0, len(a))
+    else:
+        x = np.array(x)
 
     if colors is None and alpha is None:
         alpha = 1
