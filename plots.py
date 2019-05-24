@@ -9,7 +9,28 @@ from matplotlib import collections as mc
 def filledplot(x,
     y=None, border : Optional[bool]=True, color=None, alpha : Optional[float]=None,
     borderalpha : Optional[float]=None, bordersize : Optional[int]=None) -> None:
+    '''
+    Creates a plot that paints the area behind the given function (its similar to fill_between
+    function)
 
+    The next signatures are valid:
+    filledplot(y)
+    filledplot(x, y)
+
+    :param x: 1D array with the coordinates on the x-axis if specified (if only y is set, it will
+    be by default np.arange(0, len(y)))
+
+    :param y: 1D array with the coordinates on the y-axis or a callable function
+    If its a 1D array and x is also set, both vectors must have the same length
+    If its a callable (x must be set first), it ill be called with x as argument and it must return a 1D array with the same
+    length as x
+
+    :param border: If it is true, plot the function also
+    :param color: Color to be used to paint the function and its enclosed area
+    :param alpha: Alpha value to be used when painting the area
+    :param borderalpha: Alpha value to be used when painting the function (only used if border is True)
+    :param bordersize: Size of the lines when plotting the function (only used if border is True)
+    '''
     if x is not None:
         x = np.array(x)
 
