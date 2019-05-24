@@ -41,17 +41,20 @@ def filledfuncplot(x,
 
 def diffplot(y, x=None,
     marker : Optional[str]=None, markersize : Optional[int]=None,
-    pointcolors=None, pointsalpha : Optional[float]=None,
+    colors=None, alpha : Optional[float]=None,
+    matchmarker : Optional[str]=None, matchmarkersize : Optional[float]=None,
+    matchcolor=None, matchalpha : Optional[float]=None,
+
     linewidths : Optional[int]=1, linecolors=None, linestyles : Optional[str]='-',
-    linesalpha : Optional[float]=None) -> None:
+    linesalpha : Optional[float]=None,) -> None:
 
     y = np.array(y)
 
     if x is None:
         x = np.arange(0, len(a))
 
-    if pointcolors is None and pointsalpha is None:
-        pointalpha = 1
+    if colors is None and alpha is None:
+        alpha = 1
 
     if linecolors is None and linesalpha is None:
         linesalpha = 0.5
@@ -59,24 +62,40 @@ def diffplot(y, x=None,
     if linecolors is None:
         linecolors = 'black'
 
+    if matchmarker is None and marker is not None:
+        matchmarker = marker
+
+    if matchmarkersize is None and markersize is not None:
+        matchmarkersize = markersize
+
+    if matchalpha is None and alpha is not None:
+        matchalpha = alpha
+
+    if colors is not None and matchcolor is None:
+        matchcolor = 'black'
+
+    indices = np.abs(y[1] - y[0]) > 0
+    xd, yd = x[indices], y[:, indices]
+    xnd, ynd = x[~indices], y[:, ~indices]
+
     # Plot lines
     lines = mc.LineCollection(
-        list(zip(np.stack([x, y[0]], axis=1), np.stack([x, y[1]], axis=1))),
+        list(zip(np.stack([xd, yd[0]], axis=1), np.stack([xd, yd[1]], axis=1))),
         linestyles=linestyles, linewidths=linewidths, colors=linecolors, alpha=linesalpha, label='_nolegend_')
     plt.gca().add_collection(lines)
 
     # Plot points
     for k in (0, 1):
-        plt.scatter(x, y[k], marker=marker, s=markersize, c=pointcolors, alpha=pointsalpha)
+        plt.scatter(xd, yd[k],
+            marker=marker, s=markersize, c=colors, alpha=alpha)
 
+    # Plot matching points
+    plt.scatter(xnd, ynd[0, :], marker=matchmarker, c=matchcolor, s=matchmarkersize, alpha=matchalpha)
 
 if __name__ == '__main__':
-    a = np.random.random(10)
-    b = np.random.random(10)
+    a = np.random.randint(0, 4, size=10)
+    b = np.random.randint(0, 4, size=10)
 
-    filledfuncplot(a)
 
-    #diffplot((a, b), linewidths=1, pointcolors='blue', pointsalpha=1)
-    #plt.plot(a, b, None)
-    #plt.legend(['f'])
+    diffplot((a, b))
     plt.show()
