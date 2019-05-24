@@ -157,13 +157,13 @@ def diffplot(x, y=None,
     # Plot lines
     lines = mc.LineCollection(
         list(zip(np.stack([xd, yd[0]], axis=1), np.stack([xd, yd[1]], axis=1))),
-        linestyles=linestyles, linewidths=linewidths, colors=linecolors, alpha=linesalpha, label='_nolegend_')
+        linestyles=linestyles, linewidths=linewidths, colors=linecolors, alpha=linesalpha, zorder=1, label='_nolegend_')
     plt.gca().add_collection(lines)
 
     # Plot points
     for k in (0, 1):
-        plt.scatter(xd, yd[k],
-            marker=marker, s=markersize, c=colors, alpha=alpha)
+        plt.scatter(xd, yd[k], marker=marker, s=markersize, c=[plt.gcf().get_facecolor()], zorder=2, alpha=1)
+        plt.scatter(xd, yd[k], marker=marker, s=markersize, c=colors, alpha=alpha, zorder=3)
 
     # Plot matching points
     plt.scatter(xnd, ynd[0, :], marker=matchmarker, c=matchcolor, s=matchmarkersize, alpha=matchalpha)
@@ -172,6 +172,5 @@ if __name__ == '__main__':
     a, b = np.random.randint(0, 70, size=10), np.random.randint(20, 90, size=10)
     x = np.linspace(0, 1, len(a))
     diffplot(x, [a, b], colors='blue', linecolors='orange', alpha=0.9, linesalpha=0.75)
-
 
     plt.show()
