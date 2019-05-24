@@ -14,8 +14,8 @@ def filledplot(x,
     function)
 
     The next signatures are valid:
-    filledplot(y)
-    filledplot(x, y)
+    filledplot(y, ...)
+    filledplot(x, y, ...)
 
     :param x: 1D array with the coordinates on the x-axis if specified (if only y is set, it will
     be by default np.arange(0, len(y)))
@@ -25,11 +25,21 @@ def filledplot(x,
     If its a callable (x must be set first), it ill be called with x as argument and it must return a 1D array with the same
     length as x
 
-    :param border: If it is true, plot the function also
+    :param border: If it is true, plot the function also (by default True)
     :param color: Color to be used to paint the function and its enclosed area
     :param alpha: Alpha value to be used when painting the area
     :param borderalpha: Alpha value to be used when painting the function (only used if border is True)
     :param bordersize: Size of the lines when plotting the function (only used if border is True)
+
+    examples:
+    x = np.linspace(0, 2*np.pi, 100)
+    y = np.sin(x)
+
+    filledplot(y)
+    filledplot(x, y)
+    filledplot(x, np.sin)
+
+    filledplot(x, np.sin, color='blue', alpha=0.3, borderalpha=0.9, bordersize=2)
     '''
     if x is not None:
         x = np.array(x)
