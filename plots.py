@@ -1,12 +1,13 @@
 
 
+from typing import *
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-def filledfunc(x,
-    y=None, border=True, color=None, alpha=None,
-    borderalpha=None, bordersize=None):
+def filledfuncplot(x,
+    y=None, border : Optional[bool]=True, color=None, alpha : Optional[float]=None,
+    borderalpha : Optional[float]=None, bordersize : Optional[int]=None) -> None:
 
     if y is None:
         y = x
@@ -44,6 +45,6 @@ def filledfunc(x,
 if __name__ == '__main__':
     hist, edges = np.histogram(np.random.randn(1000), bins=30)
 
-    filledfunc(hist, color='blue', alpha=0.25, border=True, bordersize=1)
+    filledfuncplot(hist, color='blue', alpha=0.25, border=True, bordersize=1)
     plt.legend(['f'])
     plt.show()
