@@ -27,3 +27,6 @@ MANIFEST
 
 # Ignore notebook checkpoints
 .ipynb_checkpoints/
+
+# Ignore mypy cache
+.mypy_cache/
